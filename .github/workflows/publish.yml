@@ -1,10 +1,17 @@
 name: Publish Package
 
 on:
-  push:
+  # Trigger after CI workflow completes successfully
+  workflow_run:
+    workflows: ["CI/CD Pipeline"]
+    types:
+      - completed
     branches: [main]
+  # Allow version tags
+  push:
     tags:
       - 'v*'
+  # Allow manual trigger
   workflow_dispatch:
     inputs:
       version:
@@ -22,6 +29,8 @@ jobs:
   publish-npm:
     name: Publish to GitHub Packages
     runs-on: ubuntu-latest
+    # Only run if CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: read
       packages: write
@@ -105,6 +114,8 @@ jobs:
   publish-docker:
     name: Publish Docker Image
     runs-on: ubuntu-latest
+    # Only run if CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     needs: [publish-npm]
     steps:
       - name: Checkout code
