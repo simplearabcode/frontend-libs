@@ -9,8 +9,8 @@ WORKDIR /app
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copy package files
-COPY package.json pnpm-lock.yaml* .npmrc* ./
+# Copy package files (pnpm-lock.yaml required, .npmrc excluded in .dockerignore)
+COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile --prod=false
