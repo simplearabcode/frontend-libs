@@ -38,11 +38,11 @@ WORKDIR /app
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copy package files
-COPY package.json pnpm-lock.yaml* .npmrc* ./
+# Copy package files (pnpm-lock.yaml required, .npmrc excluded in .dockerignore)
+COPY package.json pnpm-lock.yaml ./
 
-# Install production dependencies only (no frozen lockfile in production)
-RUN pnpm install --prod --no-frozen-lockfile
+# Install production dependencies only
+RUN pnpm install --prod --frozen-lockfile
 
 # Copy built assets from builder
 COPY --from=builder /app/dist ./dist

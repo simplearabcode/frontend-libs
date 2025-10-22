@@ -1,6 +1,5 @@
 # Dependencies
 node_modules
-pnpm-lock.yaml
 
 # Build output
 dist
@@ -32,6 +31,7 @@ coverage
 *.env
 *.env.local
 .env*.local
+.npmrc
 
 # Documentation (keep only README)
 docs
