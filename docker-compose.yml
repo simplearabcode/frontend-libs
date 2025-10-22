@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # Production Build
+  # ============================================
+  frontend-libs-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: simplearabcode/frontend-libs:latest
+    container_name: frontend-libs-prod
+    restart: unless-stopped
+    volumes:
+      # Mount dist folder for access
+      - ./dist:/app/dist:ro
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "com.simplearabcode.description=Frontend Libs Production Build"
+      - "com.simplearabcode.version=1.0.0"
+
+  # ============================================
+  # Builder (for CI/CD)
+  # ============================================
+  frontend-libs-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    image: simplearabcode/frontend-libs:builder
+    container_name: frontend-libs-builder
+    volumes:
+      - ./dist:/app/dist
+    environment:
+      - NODE_ENV=production
+    command: echo "Build complete"

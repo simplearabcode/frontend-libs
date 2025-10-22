@@ -1,0 +1,46 @@
+# Dependencies
+node_modules
+pnpm-lock.yaml
+
+# Build output
+dist
+*.tgz
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+.DS_Store
+*.env
+*.env.local
+.env*.local
+
+# Documentation (keep only README)
+docs
+*.md
+!README.md
+
+# CI/CD
+.github
+
+# Backup files
+*.backup
+*.bak
