@@ -28,24 +28,31 @@ A comprehensive UI component library built with **React 19**, **TypeScript**, **
 
 ### Prerequisites
 
-You need a GitHub Personal Access Token with `read:packages` permission.
+- **Node.js** 20+ 
+- **pnpm** 9+ (recommended) or npm/yarn
+- **GitHub Personal Access Token** with `read:packages` permission
 
 **Create token**: https://github.com/settings/tokens/new
 
 ### Setup
 
 ```bash
-# 1. Configure npm registry (in your project)
+# 1. Install pnpm (if not installed)
+npm install -g pnpm
+
+# 2. Configure pnpm registry (in your project)
 echo "@simplearabcode:registry=https://npm.pkg.github.com" >> .npmrc
 
-# 2. Authenticate (in ~/.npmrc with your token)
+# 3. Authenticate (in ~/.npmrc with your token)
 echo "//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN" >> ~/.npmrc
 
-# 3. Install the package
+# 4. Install the package with pnpm (recommended)
 pnpm add @simplearabcode/frontend-libs
-# or
+
+# Or with npm
 npm install @simplearabcode/frontend-libs
-# or
+
+# Or with yarn
 yarn add @simplearabcode/frontend-libs
 ```
 
@@ -160,6 +167,17 @@ libs/
 ---
 
 ## 🧪 Development
+
+### Prerequisites
+
+```bash
+# Install pnpm globally (required)
+npm install -g pnpm@9
+
+# Or using corepack (Node.js 16.13+)
+corepack enable
+corepack prepare pnpm@9 --activate
+```
 
 ### Install Dependencies
 
@@ -321,6 +339,7 @@ This creates:
 
 | Technology | Version | Purpose |
 |------------|---------|---------|
+| **pnpm** | 9+ | **Package manager (required)** |
 | React | 19.2.0 | UI library |
 | TypeScript | 5.9.3 | Type safety |
 | Tailwind CSS | 4.1.15 | Styling |
