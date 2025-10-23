@@ -29,10 +29,14 @@ export const registerSchema = z
     password: passwordSchema,
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  });
+  .refine(
+    (data): data is { name: string; email: string; password: string; confirmPassword: string } =>
+      data.password === data.confirmPassword,
+    {
+      message: "Passwords don't match",
+      path: ['confirmPassword'],
+    }
+  );
 
 // Forgot password schema
 export const forgotPasswordSchema = z.object({
@@ -46,10 +50,14 @@ export const resetPasswordSchema = z
     confirmPassword: z.string(),
     token: z.string().min(1, 'Reset token is required'),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  });
+  .refine(
+    (data): data is { password: string; confirmPassword: string; token: string } =>
+      data.password === data.confirmPassword,
+    {
+      message: "Passwords don't match",
+      path: ['confirmPassword'],
+    }
+  );
 
 // Change password schema
 export const changePasswordSchema = z
@@ -58,14 +66,22 @@ export const changePasswordSchema = z
     newPassword: passwordSchema,
     confirmNewPassword: z.string(),
   })
-  .refine((data) => data.newPassword === data.confirmNewPassword, {
-    message: "Passwords don't match",
-    path: ['confirmNewPassword'],
-  })
-  .refine((data) => data.currentPassword !== data.newPassword, {
-    message: 'New password must be different from current password',
-    path: ['newPassword'],
-  });
+  .refine(
+    (data): data is { currentPassword: string; newPassword: string; confirmNewPassword: string } =>
+      data.newPassword === data.confirmNewPassword,
+    {
+      message: "Passwords don't match",
+      path: ['confirmNewPassword'],
+    }
+  )
+  .refine(
+    (data): data is { currentPassword: string; newPassword: string; confirmNewPassword: string } =>
+      data.currentPassword !== data.newPassword,
+    {
+      message: 'New password must be different from current password',
+      path: ['newPassword'],
+    }
+  );
 
 // Type exports
 export type LoginInput = z.infer<typeof loginSchema>;
