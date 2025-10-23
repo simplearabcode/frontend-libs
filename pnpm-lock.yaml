@@ -60,6 +60,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
+      jiti:
+        specifier: ^2.4.2
+        version: 2.6.1
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
