@@ -14,6 +14,8 @@ export default defineConfig({
         'shared/**/*.ts',
         'shared/**/*.tsx'
       ],
+      outDir: 'dist',
+      staticImport: true,
     }),
   ],
   resolve: {
@@ -25,10 +27,14 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'index.ts'),
+      entry: {
+        index: resolve(__dirname, 'index.ts'),
+        ui: resolve(__dirname, 'ui/index.ts'),
+        shared: resolve(__dirname, 'shared/index.ts'),
+      },
       name: 'SimpleArabCodeUIKit',
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
+      fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'mjs' : 'js'}`,
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
@@ -38,6 +44,8 @@ export default defineConfig({
           'react-dom': 'ReactDOM',
           'react/jsx-runtime': 'react/jsx-runtime',
         },
+        // Preserve directory structure for better tree-shaking
+        preserveModules: false,
       },
     },
     sourcemap: true,

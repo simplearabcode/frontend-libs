@@ -5,13 +5,43 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles": "./dist/styles/index.css"
+    "./ui": {
+      "types": "./dist/ui/index.d.ts",
+      "import": "./dist/ui.mjs",
+      "require": "./dist/ui.js"
+    },
+    "./shared": {
+      "types": "./dist/shared/index.d.ts",
+      "import": "./dist/shared.mjs",
+      "require": "./dist/shared.js"
+    },
+    "./shared/*": {
+      "types": "./dist/shared/*/index.d.ts",
+      "import": "./dist/shared.mjs",
+      "require": "./dist/shared.js"
+    },
+    "./styles": "./dist/frontend-libs.css"
+  },
+  "typesVersions": {
+    "*": {
+      "shared": ["./dist/shared/index.d.ts"],
+      "shared/config": ["./dist/shared/config/index.d.ts"],
+      "shared/utils": ["./dist/shared/utils/index.d.ts"],
+      "shared/hooks": ["./dist/shared/hooks/index.d.ts"],
+      "shared/types": ["./dist/shared/types/index.d.ts"],
+      "shared/constants": ["./dist/shared/constants/index.d.ts"],
+      "shared/validators": ["./dist/shared/validators/index.d.ts"],
+      "shared/contexts": ["./dist/shared/contexts/index.d.ts"],
+      "shared/guards": ["./dist/shared/guards/index.d.ts"],
+      "ui": ["./dist/ui/index.d.ts"]
+    }
   },
   "files": [
     "dist",
@@ -69,6 +99,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^24.9.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^5.0.4",
